@@ -1,3 +1,6 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import {
   ArrowRight,
   CalendarDays,
@@ -40,6 +43,15 @@ const events = [
 ];
 
 export default function Home() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const visibleEvents = useMemo(() => {
+    const query = searchTerm.trim().toLowerCase();
+    if (!query) return events;
+    return events.filter((event) =>
+      `${event.title} ${event.type} ${event.location}`.toLowerCase().includes(query),
+    );
+  }, [searchTerm]);
+
   return (
     <main className="min-h-screen overflow-hidden bg-[#070817] pt-[110px] text-white antialiased">
       <header className="fixed inset-x-0 top-0 z-50 bg-[#0c0724]/90 shadow-lg shadow-black/20 backdrop-blur-xl">
@@ -85,22 +97,24 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-2.5 sm:gap-4">
             <a
-              className="hidden w-36 items-center gap-2 rounded-full border border-white/10 bg-white/[.07] px-3 py-2 text-[10px] text-violet-200/70 sm:flex"
+              className="group hidden h-11 w-56 items-center gap-2.5 rounded-2xl border border-white/10 bg-gradient-to-r from-white/[.09] to-white/[.04] px-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_8px_30px_rgba(0,0,0,0.18)] backdrop-blur-xl transition-all duration-300 focus-within:border-[#d7aa67]/80 focus-within:ring-2 focus-within:ring-[#d7aa67]/15 hover:-translate-y-0.5 hover:border-[#d7aa67]/60 hover:shadow-[0_10px_30px_rgba(215,170,103,0.12)] sm:flex"
               href="#events"
+              onClick={(event) => event.preventDefault()}
             >
-              <Search size={15} /> Search events
+              <input aria-label="Search events" className="min-w-0 flex-1 bg-transparent text-[11px] tracking-wide text-white outline-none placeholder:text-violet-200/55" onChange={(event) => setSearchTerm(event.target.value)} placeholder="Search experiences" type="search" value={searchTerm} />
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-[#d7aa67]/10 text-[#e8bd72] transition-colors duration-300 group-focus-within:bg-[#d7aa67]/20 group-hover:bg-[#d7aa67]/20"><Search size={15} /></span>
             </a>
             <a
-              className="hidden text-[11px] font-bold text-violet-100 sm:block"
+              className="flex h-10 w-[88px] items-center justify-center rounded-full border border-white/15 text-[10px] font-semibold text-violet-100 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#d7aa67] hover:text-[#d7aa67] sm:text-[11px]"
               href="#community"
             >
               Sign in
             </a>
             <a
-              className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-500 px-4 py-3 text-[11px] font-bold shadow-lg shadow-fuchsia-700/20 transition hover:-translate-y-0.5"
-              href="#events"
+              className="flex h-10 w-[88px] items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-[#c58a35] via-[#e8bc6b] to-[#b8792d] text-[11px] font-bold text-[#1b1023] shadow-lg shadow-[#d7aa67]/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[#d7aa67]/40"
+              href="#membership"
             >
-              Get tickets <ArrowRight size={15} />
+              Sign up <ArrowRight size={15} />
             </a>
             <button
               className="flex flex-col gap-1 p-1 md:hidden"
@@ -263,7 +277,7 @@ export default function Home() {
           </a>
         </div>
         <div className="grid gap-5 md:grid-cols-3">
-          {events.map((event) => (
+          {visibleEvents.map((event) => (
             <article
               className="overflow-hidden rounded-lg border border-white/10 bg-[#100d24]"
               key={event.title}
@@ -292,6 +306,11 @@ export default function Home() {
               </div>
             </article>
           ))}
+          {visibleEvents.length === 0 && (
+            <p className="col-span-full rounded-xl border border-white/10 bg-white/[.04] px-5 py-8 text-center text-sm text-violet-200/70">
+              No events found. Try another search.
+            </p>
+          )}
         </div>
       </section>
       <footer
