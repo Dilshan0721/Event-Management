@@ -129,8 +129,19 @@ export default function Home() {
 
       <section
         id="top"
-        className="relative isolate min-h-[680px] overflow-hidden bg-[#080817] bg-[url('/velora-concert-hero.png')] bg-cover bg-[center_right]"
+        className="relative isolate min-h-[680px] overflow-hidden bg-[#080817]"
       >
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/velora-concert-hero.png"
+          className="absolute inset-0 -z-20 h-full w-full object-cover object-[center_right]"
+          aria-hidden="true"
+        >
+          <source src="/main.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#080817] via-[#080817]/95 via-42% to-[#080817]/10" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#080817] via-transparent to-[#080817]/20" />
         <div className="absolute -right-24 top-10 -z-10 h-72 w-[52%] rounded-[50%] border border-[#d7aa67]/60 blur-[1px]" />
