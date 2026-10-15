@@ -53,7 +53,7 @@ export default function Home() {
   }, [searchTerm]);
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#070817] pt-[110px] text-white antialiased">
+    <main className="min-h-screen overflow-hidden bg-[#070817] text-white antialiased">
       <header className="fixed inset-x-0 top-0 z-50 bg-[#0c0724]/90 shadow-lg shadow-black/20 backdrop-blur-xl">
      
         <nav className="mx-auto flex h-[78px] max-w-[1440px] items-center justify-between border-b border-white/10 px-6 sm:px-12 lg:px-16">
@@ -135,7 +135,7 @@ export default function Home() {
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#080817] via-transparent to-[#080817]/20" />
         <div className="absolute -right-24 top-10 -z-10 h-72 w-[52%] rounded-[50%] border border-[#d7aa67]/60 blur-[1px]" />
         <div className="absolute -bottom-36 left-[33%] -z-10 h-80 w-[52%] rounded-[50%] border border-[#d7aa67]/80 blur-[1px]" />
-        <div className="mx-auto flex min-h-[680px] max-w-[1440px] items-center px-6 py-20 sm:px-12 lg:px-16">
+        <div className="mx-auto flex min-h-[680px] max-w-[1440px] items-center px-6 pb-20 pt-[130px] sm:px-12 lg:px-16">
           <div className="max-w-2xl">
             <p className="mb-5 flex items-center gap-4 text-[11px] font-medium tracking-[.32em] text-[#d7aa67]">
               <span className="h-px w-9 bg-[#d7aa67]" />
